@@ -2,6 +2,9 @@ import User from '../model/userModels.js';
 import jwt from 'jsonwebtoken';
 import { handleEtagResponse } from '../middleware.js';
 
+let dataCache = null;
+const jwtSecret = process.env.JWT_SECRET;
+
 // List all users
 export async function listUsers(req, res) {
     
@@ -11,11 +14,16 @@ export async function listUsers(req, res) {
             res.status(404).json({ error: "Aucun utilisateur n'a été trouvé" });
             return;
         }
+        if (dataCache && JSON.stringify(dataCache) === JSON.stringify(users)) {
+            console.log('Data from cache');
+            res.status(200).json({ data: dataCache, message: 'Data from cache' });
+            return;
+        }
         const shouldSendResponse = handleEtagResponse(req, res, users);
         if (!shouldSendResponse) {
             return;
         }
-
+        dataCache = users;
         res.json(users);
     } catch (err) {
         res.status(500).json({ error: err });
