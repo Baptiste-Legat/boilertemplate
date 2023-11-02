@@ -1,8 +1,8 @@
 import express from 'express';
-import {verifyToken, loginUser, listUsers, createUser, getUser, updateUser, deleteUser } from '../controller/userController.js';
+import { loginUser, listUsers, createUser, getUser, updateUser, deleteUser } from '../controller/userController.js';
+import { verifyToken } from '../middleware.js';
 
 const router = express.Router();
-
 
 //login
 router.post('/api/login', loginUser);

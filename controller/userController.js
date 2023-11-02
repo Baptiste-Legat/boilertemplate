@@ -1,38 +1,21 @@
 import User from '../model/userModels.js';
 import jwt from 'jsonwebtoken';
-import 'dotenv/config';
-
-// Middleware pour vérifier le token JWT
-const jwtSecret = process.env.JWT_SECRET;
-
-// Middleware pour vérifier le token JWT
-export function verifyToken(req, res, next) {
-    const token = req.headers.authorization && req.headers.authorization.split(' ')[1];
-
-    if (!token) {
-        return res.status(401).json({ error: 'Token manquant' });
-    }
-
-    jwt.verify(token, jwtSecret, (err, decoded) => {
-        if (err) {
-            return res.status(401).json({ error: 'Token invalide' });
-        }
-
-        req.user = decoded;
-
-        next();
-    });
-}
+import { handleEtagResponse } from '../middleware.js';
 
 // List all users
 export async function listUsers(req, res) {
     
     try {
-        const users = await User.find();
+        const users = await User.find();    
         if (!users || users.length === 0) {
             res.status(404).json({ error: "Aucun utilisateur n'a été trouvé" });
             return;
         }
+        const shouldSendResponse = handleEtagResponse(req, res, users);
+        if (!shouldSendResponse) {
+            return;
+        }
+
         res.json(users);
     } catch (err) {
         res.status(500).json({ error: err });
@@ -58,6 +41,12 @@ export async function getUser(req, res) {
             res.status(404).json({ error: "Utilisateur non trouvé" });
             return;
         }
+
+        const shouldSendResponse = handleEtagResponse(req, res, user);
+        if (!shouldSendResponse) {
+            return;
+        }
+
         res.status(200).json(user);
     } catch (err) {
         res.status(500).json({ error: err });
@@ -117,7 +106,6 @@ export async function loginUser(req, res) {
         res.status(200).json({ message: "Connexion réussie", token });
 
     } catch (err) {
-        console.log(err);
         res.status(500).json({ error: err });
     }
 }
