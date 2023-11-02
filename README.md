@@ -40,13 +40,14 @@ L'application sera disponible à l'adresse [http://localhost:8080](http://localh
 
 ## Routes de l'API
 
-Utiliser Postman(https://www.postman.com/) pour tester les routes de l'API.
+Utiliser [Postman](https://www.postman.com/) pour tester les routes de l'API.
 
-- `GET /api/users` : Récupérer la liste de tous les utilisateurs.
-- `GET /api/users/:id` : Récupérer un utilisateur par ID.
+- `POST /api/login` : Se connecter à l'application.
+- `GET /api/users` : Récupérer la liste de tous les utilisateurs.(nécéssite d'être connecté)
+- `GET /api/users/:id` : Récupérer un utilisateur par ID.(nécéssite d'être connecté)
 - `POST /api/users` : Créer un nouvel utilisateur.
-- `PUT /api/users/:id` : Mettre à jour un utilisateur existant.
-- `DELETE /api/users/:id` : Supprimer un utilisateur par ID.
+- `PUT /api/users/:id` : Mettre à jour un utilisateur existant.(nécéssite d'être connecté)
+- `DELETE /api/users/:id` : Supprimer un utilisateur par ID.(nécéssite d'être connecté)
 
 ## Contribuer
 
