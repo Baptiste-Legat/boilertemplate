@@ -3,18 +3,18 @@ import { listUsers, createUser, getUser, updateUser, deleteUser } from '../contr
 
 const router = express.Router();
 // list all users
-router.get('/', listUsers);
+router.get('/api/users', listUsers);
 
 // create a new user
-router.post('/', createUser);
+router.post('api/users/', createUser);
 
 // get a user
-router.get('/:userId', getUser);
+router.get('/api/users/:userId', getUser);
 
 // update a user
-router.put('/:userId', updateUser);
+router.put('/api/users/:userId', updateUser);
 
 // delete a user
-router.delete('/:userId', deleteUser);
+router.delete('/api/users/:userId', deleteUser);
 
 export default router;
