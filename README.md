@@ -37,6 +37,7 @@ L'application sera disponible à l'adresse [http://localhost:8080](http://localh
 - API REST pour gérer les utilisateurs (CRUD : Create, Read, Update, Delete).
 - Gestion des utilisateurs avec MongoDB comme base de données.
 - Express.js pour la gestion des routes et des contrôleurs.
+- Tests unitaires avec Jest sur les contrôleurs et les services.
 
 ## Routes de l'API
 
