@@ -1,12 +1,13 @@
-import 'dotenv/config';
-import etag from 'etag';
-import jwt from 'jsonwebtoken';
+const etag = require('etag');
+const jwt = require('jsonwebtoken');
+const dotenv = require('dotenv');
+require('dotenv').config();
 
 // Middleware pour vérifier le token JWT
 const jwtSecret = process.env.JWT_SECRET;
 
 // Middleware pour vérifier le token JWT
-export function verifyToken(req, res, next) {
+function verifyToken(req, res, next) {
     const token = req.headers.authorization && req.headers.authorization.split(' ')[1];
 
     if (!token) {
@@ -26,7 +27,7 @@ export function verifyToken(req, res, next) {
 
 
 // Générer un ETag pour des données JSON et gérer la réponse en conséquence
-export function handleEtagResponse(req, res, data) {
+function handleEtagResponse(req, res, data) {
     const dataETag = etag(JSON.stringify(data));
 
     if (req.headers['if-none-match'] === dataETag) {
@@ -38,3 +39,4 @@ export function handleEtagResponse(req, res, data) {
     }
 }
 
+module.exports = { verifyToken, handleEtagResponse };
