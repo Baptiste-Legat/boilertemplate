@@ -5,6 +5,7 @@ BoilerTemplate est un modèle de base pour le développement d'une application N
 ## Installation
 
 Assurez-vous d'avoir [Node.js](https://nodejs.org/) et [MongoDB](https://www.mongodb.com/) installés sur votre système avant de commencer.
+Je vous conseil d'utiliser MongoDB Atlas pour votre base de données et d'installer MongoDB Compass pour gérer votre base de données. (suivre un tutoriel si besoin).
 
 1. Clonez ce dépôt sur votre machine :
 
